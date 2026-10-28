@@ -28,6 +28,7 @@ public class UsuarioService {
         usuario.setNome(novoUsuario.getNome());
         usuario.setEmail(novoUsuario.getEmail());
         usuario.setFone(novoUsuario.getFone());
+        usuario.setFone2(novoUsuario.getFone2());
 
         return usuarioRepository.save(usuario);
     }
