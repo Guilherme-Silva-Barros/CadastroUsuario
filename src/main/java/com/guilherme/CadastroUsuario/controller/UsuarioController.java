@@ -29,6 +29,11 @@ public class UsuarioController {
     Usuario usuarioUpdate = usuarioService.update(id, usuario);
     return ResponseEntity.ok(usuarioUpdate);
     }
+
+    @GetMapping("/{id}")
+    public Usuario getById(@PathVariable Long id){
+        return usuarioService.buscaPorId(id);
+    }
     @DeleteMapping("/{id}")
     public void delete(@PathVariable Long id){
          usuarioService.deleteById(id);
