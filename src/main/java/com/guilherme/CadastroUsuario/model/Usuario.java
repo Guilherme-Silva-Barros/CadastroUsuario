@@ -24,4 +24,6 @@ public class Usuario {
     private String fone;
     @Column(name="fone2")
     private String fone2;
+    @Column(name="Endereco")
+    private String endereco;
 }
