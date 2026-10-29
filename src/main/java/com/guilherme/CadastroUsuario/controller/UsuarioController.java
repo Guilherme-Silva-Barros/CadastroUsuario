@@ -1,6 +1,7 @@
 package com.guilherme.CadastroUsuario.controller;
 
 import com.guilherme.CadastroUsuario.model.Usuario;
+import com.guilherme.CadastroUsuario.model.UsuarioDTO;
 import com.guilherme.CadastroUsuario.service.UsuarioService;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -17,16 +18,19 @@ public class UsuarioController {
     }
 
     @GetMapping
-    public List<Usuario> getAll(){
+    public List<UsuarioDTO> getAll(){
         return usuarioService.getAll();
     }
+
     @PostMapping
-    public Usuario save(@RequestBody Usuario usuario){
+    public UsuarioDTO save(@RequestBody UsuarioDTO usuario){
+
         return usuarioService.save(usuario);
     }
+
     @PutMapping("/{id}")
-    public ResponseEntity<Usuario>update(@PathVariable Long id, @RequestBody Usuario usuario){
-    Usuario usuarioUpdate = usuarioService.update(id, usuario);
+    public ResponseEntity<UsuarioDTO>update(@PathVariable Long id, @RequestBody UsuarioDTO usuario){
+    UsuarioDTO usuarioUpdate = usuarioService.update(id, usuario);
     return ResponseEntity.ok(usuarioUpdate);
     }
 
