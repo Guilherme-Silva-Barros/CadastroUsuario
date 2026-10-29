@@ -7,6 +7,8 @@ import com.guilherme.CadastroUsuario.repository.UsuarioRepository;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.Optional;
+import java.util.stream.Collectors;
 
 @Service
 public class UsuarioService {
@@ -17,25 +19,31 @@ public class UsuarioService {
         this.usuarioMapper = usuarioMapper;
     }
 
-    public List<Usuario> getAll(){
-        return usuarioRepository.findAll();
+    public List<UsuarioDTO> getAll(){
+        List<Usuario>usuario =  usuarioRepository.findAll();
+        return usuario.stream()
+                .map(usuarioMapper::map)
+                .collect(Collectors.toList());
     }
 
     public UsuarioDTO save(UsuarioDTO usuarioDto){
+        if (usuarioRepository.existsByEmail(usuarioDto.getEmail())) {
+            throw new RuntimeException("Email já cadastrado");
+        }
         Usuario usuario = usuarioMapper.map(usuarioDto);
         usuario = usuarioRepository.save(usuario);
         return  usuarioMapper.map(usuario);
     }
 
-    public Usuario update(Long id, Usuario novoUsuario){
-        Usuario usuario =  usuarioRepository.findById(id).orElseThrow(()
-                ->new RuntimeException("Usuário não encontrado"));
-        usuario.setNome(novoUsuario.getNome());
-        usuario.setEmail(novoUsuario.getEmail());
-        usuario.setFone(novoUsuario.getFone());
-        usuario.setFone2(novoUsuario.getFone2());
-
-        return usuarioRepository.save(usuario);
+    public UsuarioDTO update(Long id, UsuarioDTO novoUsuario){
+        Optional<Usuario> usuario = usuarioRepository.findById(id);
+        if(usuario.isPresent()){
+            Usuario novoUsusario = usuarioMapper.map(novoUsuario);
+            novoUsusario.setId(id);
+            Usuario usuarioUpdate = usuarioRepository.save(novoUsusario);
+            return usuarioMapper.map(usuarioUpdate);
+        }
+        return null;
     }
     public Usuario buscaPorId(Long id){
             return usuarioRepository.findById(id)

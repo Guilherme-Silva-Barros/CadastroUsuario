@@ -18,7 +18,7 @@ public class UsuarioController {
     }
 
     @GetMapping
-    public List<Usuario> getAll(){
+    public List<UsuarioDTO> getAll(){
         return usuarioService.getAll();
     }
 
@@ -29,8 +29,8 @@ public class UsuarioController {
     }
 
     @PutMapping("/{id}")
-    public ResponseEntity<Usuario>update(@PathVariable Long id, @RequestBody Usuario usuario){
-    Usuario usuarioUpdate = usuarioService.update(id, usuario);
+    public ResponseEntity<UsuarioDTO>update(@PathVariable Long id, @RequestBody UsuarioDTO usuario){
+    UsuarioDTO usuarioUpdate = usuarioService.update(id, usuario);
     return ResponseEntity.ok(usuarioUpdate);
     }
 

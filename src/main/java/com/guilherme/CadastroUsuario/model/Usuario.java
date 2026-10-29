@@ -16,14 +16,19 @@ public class Usuario {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "Id")
     private Long id ;
+
     @Column(name ="nome")
     private String nome;
-    @Column(name = "email")
+
+    @Column(name = "email", unique = true)
     private String email;
+
     @Column(name="fone")
     private String fone;
+
     @Column(name="fone2")
     private String fone2;
+
     @Column(name="Endereco")
     private String endereco;
 }
