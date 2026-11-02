@@ -42,16 +42,16 @@ public class UsuarioController {
     }
 
     @GetMapping("/{id}")
-    public Usuario getById(@PathVariable Long id){
+    public UsuarioDTO getById(@PathVariable Long id){
         return usuarioService.buscaPorId(id);
     }
 
-    @DeleteMapping("/{id}")
+    @DeleteMapping("delete/{id}")
     public ResponseEntity<String> delete(@PathVariable Long id){
         usuarioService.deleteById(id);
         return ResponseEntity.ok("Usuário deletado com sucesso");
 
     }
 
-
 }
+

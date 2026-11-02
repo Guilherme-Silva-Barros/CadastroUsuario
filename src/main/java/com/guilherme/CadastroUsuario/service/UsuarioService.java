@@ -47,9 +47,11 @@ public class UsuarioService {
         }
         return null;
     }
-    public Usuario buscaPorId(Long id){
-            return usuarioRepository.findById(id)
+    public UsuarioDTO buscaPorId(Long id){
+            Usuario usuario = usuarioRepository.findById(id)
                     .orElseThrow(()->new ResponseStatusException(HttpStatus.NOT_FOUND, "Usuário não encontrado"));
+
+            return usuarioMapper.map(usuario);
     }
 
     public void deleteById(Long id){

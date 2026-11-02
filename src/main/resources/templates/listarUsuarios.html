@@ -4,22 +4,69 @@
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <title>Usuarios</title>
     <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f4f4f4;
+            margin: 0;
+            padding: 20px;
+        }
+
+        h1 {
+            text-align: center;
+            color: #333;
+        }
+
         table {
             width: 100%;
             border-collapse: collapse;
+            margin: 20px 0;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+            background-color: #fff;
         }
+
         th, td {
-            padding: 10px;
-            text-align: center;
-            border: 1px solid black;
+            padding: 12px;
+            text-align: left;
+            border-bottom: 1px solid #ddd;
         }
+
         th {
-            background-color: #ddd;
+            background-color: #4CAF50;
+            color: white;
         }
-        td {
-            word-break: break-word;
+
+        tr:hover {
+            background-color: #f1f1f1;
+        }
+
+        img {
+            border-radius: 50%;
+        }
+
+        a {
+            display: inline-block;
+            padding: 8px 16px;
+            margin: 4px;
+            text-decoration: none;
+            border-radius: 5px;
+            color: white;
+            background-color: #4CAF50;
+            transition: background-color 0.3s;
+        }
+
+        a:hover {
+            background-color: #45a049;
+        }
+
+        .btn-deletar {
+            background-color: #f44336;
+        }
+
+        .btn-deletar:hover {
+            background-color: #d32f2f;
         }
     </style>
+
 </head>
 <body>
 
@@ -33,6 +80,7 @@
         <th>Telefone</th>
         <th>Telefone 2</th>
         <th>Endereço</th>
+        <th>Opções</th>
     </tr>
     </thead>
     <tbody>
@@ -43,9 +91,23 @@
     <td th:text="${usuario.fone}"></td>
     <td th:text="${usuario.fone2}"></td>
     <td th:text="${usuario.Endereco}"></td>
+        <td>
+
+            <a class="btn btn-editar"
+               th:href="@{/cadastro/ui/#/{id}(id=${usuario.id})}"
+            >Detalhes</a>
+
+            <a class="btn btn-editar"
+               th:href="@{/cadastro/ui/#/{id}(id=${usuario.id})}"
+            >Editar</a>
+
+            <a class="btn btn-excluir"
+               th:href="@{/cadastro/ui/delete/{id}(id=${usuario.id})}"
+               onclick="return confirm('Deseja realmente excluir este usuário?')">
+                Excluir</a>
+        </td>
     </tr>
     </tbody>
-
 </table>
 </body>
 </html>
