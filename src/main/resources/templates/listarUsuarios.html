@@ -1,0 +1,51 @@
+<html lang="pt">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Usuarios</title>
+    <style>
+        table {
+            width: 100%;
+            border-collapse: collapse;
+        }
+        th, td {
+            padding: 10px;
+            text-align: center;
+            border: 1px solid black;
+        }
+        th {
+            background-color: #ddd;
+        }
+        td {
+            word-break: break-word;
+        }
+    </style>
+</head>
+<body>
+
+<H1>Lista de Usuários</H1>
+<table>
+    <thead>
+    <tr>
+        <th>Id</th>
+        <th>Nome</th>
+        <th>E-mail</th>
+        <th>Telefone</th>
+        <th>Telefone 2</th>
+        <th>Endereço</th>
+    </tr>
+    </thead>
+    <tbody>
+    <tr th:each="usuario:${usuarios}">
+    <td th:text="${usuario.id}"></td>
+    <td th:text="${usuario.nome}"></td>
+    <td th:text="${usuario.email}"></td>
+    <td th:text="${usuario.fone}"></td>
+    <td th:text="${usuario.fone2}"></td>
+    <td th:text="${usuario.Endereco}"></td>
+    </tr>
+    </tbody>
+
+</table>
+</body>
+</html>
