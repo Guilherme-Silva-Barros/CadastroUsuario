@@ -4,7 +4,9 @@ import com.guilherme.CadastroUsuario.model.Usuario;
 import com.guilherme.CadastroUsuario.model.UsuarioDTO;
 import com.guilherme.CadastroUsuario.model.UsuarioMapper;
 import com.guilherme.CadastroUsuario.repository.UsuarioRepository;
+import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
+import org.springframework.web.server.ResponseStatusException;
 
 import java.util.List;
 import java.util.Optional;
@@ -47,10 +49,13 @@ public class UsuarioService {
     }
     public Usuario buscaPorId(Long id){
             return usuarioRepository.findById(id)
-                    .orElseThrow(()->new RuntimeException("Usuário não encontrado"));
+                    .orElseThrow(()->new ResponseStatusException(HttpStatus.NOT_FOUND, "Usuário não encontrado"));
     }
 
     public void deleteById(Long id){
+        if(!usuarioRepository.existsById(id)){
+            throw new ResponseStatusException(HttpStatus.NOT_FOUND,"Usuário não encontrado");
+        }
         usuarioRepository.deleteById(id);
     }
 }

@@ -3,6 +3,7 @@ package com.guilherme.CadastroUsuario.controller;
 import com.guilherme.CadastroUsuario.model.Usuario;
 import com.guilherme.CadastroUsuario.model.UsuarioDTO;
 import com.guilherme.CadastroUsuario.service.UsuarioService;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
@@ -18,29 +19,38 @@ public class UsuarioController {
     }
 
     @GetMapping
-    public List<UsuarioDTO> getAll(){
-        return usuarioService.getAll();
+    public ResponseEntity<List<UsuarioDTO>> getAll(){
+        List<UsuarioDTO>usuarios = usuarioService.getAll();
+        return ResponseEntity.ok().body(usuarios);
     }
 
     @PostMapping
-    public UsuarioDTO save(@RequestBody UsuarioDTO usuario){
-
-        return usuarioService.save(usuario);
+    public ResponseEntity<String> save(@RequestBody UsuarioDTO usuario){
+        UsuarioDTO usuarioDTO =  usuarioService.save(usuario);
+        return ResponseEntity.status(HttpStatus.CREATED)
+                .body("Usuario:"+usuarioDTO.getNome()+", foi adicionado com sucesso"+"ID:"+usuarioDTO.getId());
     }
 
     @PutMapping("/{id}")
-    public ResponseEntity<UsuarioDTO>update(@PathVariable Long id, @RequestBody UsuarioDTO usuario){
+    public ResponseEntity<?>update(@PathVariable Long id, @RequestBody UsuarioDTO usuario){
     UsuarioDTO usuarioUpdate = usuarioService.update(id, usuario);
-    return ResponseEntity.ok(usuarioUpdate);
+    if(usuarioUpdate!=null){
+        return ResponseEntity.ok(usuarioUpdate);
+    }else{
+        return ResponseEntity.status(HttpStatus.NOT_FOUND).body("Usuário não encontrado");
+    }
     }
 
     @GetMapping("/{id}")
     public Usuario getById(@PathVariable Long id){
         return usuarioService.buscaPorId(id);
     }
+
     @DeleteMapping("/{id}")
-    public void delete(@PathVariable Long id){
-         usuarioService.deleteById(id);
+    public ResponseEntity<String> delete(@PathVariable Long id){
+        usuarioService.deleteById(id);
+        return ResponseEntity.ok("Usuário deletado com sucesso");
+
     }
 
 
