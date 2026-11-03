@@ -40,7 +40,7 @@ public class UsuarioControllerUI {
     public String getById(@PathVariable Long id, Model  model){
          UsuarioDTO usuario = usuarioService.buscaPorId(id);
          if(usuario != null){
-             model.addAttribute("usuarios", usuario);
+             model.addAttribute("usuario", usuario);
              return "detalhesUsuario";
          }else{
              model.addAttribute("mensagem", "Usuário não encontrado");

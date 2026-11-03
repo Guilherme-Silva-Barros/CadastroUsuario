@@ -71,6 +71,9 @@
 <body>
 
 <H1>Lista de Usuários</H1>
+<a class="btn btn-editar"
+th:href="@{/cadastro/ui/adicionar}"
+>Adicionar</a>
 <table>
     <thead>
     <tr>
@@ -94,7 +97,7 @@
         <td>
 
             <a class="btn btn-editar"
-               th:href="@{/cadastro/ui/#/{id}(id=${usuario.id})}"
+               th:href="@{/cadastro/ui/listar/{id}(id=${usuario.id})}"
             >Detalhes</a>
 
             <a class="btn btn-editar"
