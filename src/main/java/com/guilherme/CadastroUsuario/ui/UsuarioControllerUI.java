@@ -58,4 +58,17 @@ public class UsuarioControllerUI {
         attributes.addFlashAttribute("mensagem", "Usuario salvo com sucesso");
         return "redirect:/cadastro/ui/listar";
     }
+
+    @GetMapping("/editar/{id}")
+    public String editarUsuario(@PathVariable Long id, Model  model){
+        UsuarioDTO usuario = usuarioService.buscaPorId(id);
+        model.addAttribute("usuario", usuario);
+        return "editarUsuario.html";
+    }
+    @PostMapping("/atualizar/{id}")
+    public String atualizarUsuario(@PathVariable Long id, @ModelAttribute UsuarioDTO usuario, RedirectAttributes attributes){
+        usuarioService.update(id,usuario);
+        attributes.addFlashAttribute("mensagem", "Usuario atualizado com sucesso");
+        return "redirect:/cadastro/ui/listar";
+    }
 }
